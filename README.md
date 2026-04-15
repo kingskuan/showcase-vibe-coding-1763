@@ -1,61 +1,44 @@
 # Vibe Coding Showcase
 
-A modern portfolio website built with Next.js to showcase all your creative coding projects and websites.
+A portfolio website to showcase all your vibe coding projects, powered by the GitHub API.
 
 ## Description
 
-This is a personal portfolio and project showcase platform designed to display your vibe coding creations. The site features a clean, modern interface that highlights your projects, skills, and creativity in web development.
+This is a personal portfolio and project showcase that automatically fetches your public GitHub repositories, categorizes them, and displays them in a modern cyberpunk-themed UI with interactive particle animations.
 
 ## Features
 
-- **Project Showcase**: Display all your vibe coding projects with descriptions, images, and links
-- **Responsive Design**: Fully responsive layout that works seamlessly on desktop, tablet, and mobile devices
-- **Fast Performance**: Built with Next.js for optimal speed and SEO
-- **Easy to Customize**: Simple configuration to add or update your projects
-- **Modern UI**: Clean and contemporary design with smooth interactions
-- **Dark/Light Mode**: Toggle between dark and light themes for comfortable viewing
+- **Auto-fetched Projects**: Pulls all your public repos from GitHub automatically
+- **Smart Categorization**: Sorts projects into Web Apps, Libraries, CLI Tools, AI/ML, and Other
+- **Interactive Background**: Particle animation that responds to mouse movement
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **REST API**: Endpoints to fetch project data and refresh the cache
 
 ## Project Structure
 
 ```
 .
-├── app/
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Home page
-│   └── projects/
-│       ├── page.tsx        # Projects listing page
-│       └── [id]/
-│           └── page.tsx    # Individual project detail page
+├── index.js            # Entry point
 ├── lib/
-│   ├── projects.ts         # Project data and utilities
-│   └── utils.ts            # Helper functions
-├── components/
-│   ├── Header.tsx          # Navigation header
-│   ├── ProjectCard.tsx     # Project card component
-│   ├── Footer.tsx          # Footer component
-│   └── ThemeToggle.tsx     # Theme switcher
-├── styles/
-│   └── globals.css         # Global styles
-├── public/
-│   └── projects/           # Project images and assets
+│   └── core.js         # Server, GitHub API, HTML generation
 ├── package.json
-├── tsconfig.json
-├── next.config.js
+├── railway.json        # Railway deployment config
+├── .env.example        # Environment variable template
 └── README.md
 ```
 
 ## Setup
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn
+- Node.js 20+
+- npm
 
 ### Installation
 
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd vibe-showcase
+cd showcase-vibe-coding-1763
 ```
 
 2. Install dependencies:
@@ -63,61 +46,38 @@ cd vibe-showcase
 npm install
 ```
 
-3. Create a `.env.local` file if needed for environment variables:
+3. Create a `.env` file from the template:
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
-4. Update project data in `lib/projects.ts` with your own projects
+4. Edit `.env` with your values:
+```
+PORT=3000
+GITHUB_USERNAME=your_github_username
+GITHUB_TOKEN=your_github_personal_access_token
+```
 
-## Usage
+`GITHUB_TOKEN` is optional but recommended to avoid API rate limits (60 req/hr without, 5000 req/hr with).
 
-### Development
+### Running
 
-Run the development server:
 ```bash
-npm run dev
+npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-### Adding Projects
+## API Endpoints
 
-Edit `lib/projects.ts` and add your project information:
-```typescript
-export const projects = [
-  {
-    id: 1,
-    title: "Your Project Name",
-    description: "Project description",
-    image: "/projects/project-image.jpg",
-    link: "https://project-url.com",
-    tags: ["Next.js", "React", "Tailwind CSS"]
-  }
-  // Add more projects...
-];
-```
-
-### Build
-
-Build for production:
-```bash
-npm run build
-npm start
-```
+- `GET /` — Main showcase page (HTML)
+- `GET /api/projects` — All categorized projects (JSON)
+- `GET /api/refresh` — Re-fetch repos from GitHub and update the cache
 
 ## Deployment to Railway
 
-### Steps
-
-1. Push your project to GitHub (if not already done)
-
+1. Push your project to GitHub
 2. Go to [Railway.app](https://railway.app) and sign in with GitHub
-
-3. Create a new project:
-   - Click "New Project"
-   - Select "Deploy from GitHub repo"
-   - Choose your repository
-
-4. Configure environment variables (if needed):
-   -
+3. Create a new project → Deploy from GitHub repo → Choose your repository
+4. Add environment variables: `GITHUB_USERNAME` and optionally `GITHUB_TOKEN`
+5. Railway will auto-detect the start command from `railway.json`

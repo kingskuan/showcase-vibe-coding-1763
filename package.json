@@ -7,10 +7,7 @@
   "scripts": {
     "start": "node index.js"
   },
-  "dependencies": {
-    "no": "latest",
-    "the": "latest"
-  },
+  "dependencies": {},
   "engines": {
     "node": ">=20"
   }
