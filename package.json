@@ -1,0 +1,17 @@
+{
+  "name": "showcase-vibe-coding",
+  "version": "1.0.0",
+  "description": "我要弄一个网站 showcase 我所有 vibe coding 的产品或网站",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "no": "latest",
+    "the": "latest"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
